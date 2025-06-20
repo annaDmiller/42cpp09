@@ -1,6 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange(void) 
+BitcoinExchange::BitcoinExchange(void) : _exception_caught(false)
 {
     std::ifstream* csv_file;
 
@@ -11,6 +11,7 @@ BitcoinExchange::BitcoinExchange(void)
     catch(const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
+        _exception_caught = true;
         return;
     }
 
@@ -33,6 +34,7 @@ BitcoinExchange::BitcoinExchange(void)
                 std::cerr << e.what() << std::endl;
                 csv_file->close();
                 delete csv_file;
+                _exception_caught = true;
                 return;
             }
         }
@@ -40,6 +42,7 @@ BitcoinExchange::BitcoinExchange(void)
 
     csv_file->close();
     delete csv_file;
+    return ;
 }
 
 BitcoinExchange::~BitcoinExchange()
@@ -106,7 +109,13 @@ std::ifstream* BitcoinExchange::openCSVFile(void)
 
 float BitcoinExchange::findExchangeRate(std::string& date) const
 {
+    (void) date;
     return (0);
+}
+
+bool BitcoinExchange::getExceptionFlag(void) const
+{
+    return (this->_exception_caught);
 }
 
 const char* BitcoinExchange::NotValidDateFormat::what(void) const throw()

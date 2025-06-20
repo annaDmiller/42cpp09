@@ -27,15 +27,9 @@ int main(int argc, char** argv)
         return(1);
     }
     
-    try
-    {
-        BitcoinExchange();
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << std::endl;
+    BitcoinExchange exchange_rates;
+    if (exchange_rates.getExceptionFlag())
         return (1);
-    }
 
     std::ifstream* input_file = NULL;
     try

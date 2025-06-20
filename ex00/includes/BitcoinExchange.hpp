@@ -13,6 +13,7 @@ class   BitcoinExchange
 {
     private:
         std::map<std::string, float> _rates;
+        bool _exception_caught;
 
         BitcoinExchange(const BitcoinExchange& other);
         BitcoinExchange& operator=(const BitcoinExchange& other);
@@ -27,6 +28,7 @@ class   BitcoinExchange
         ~BitcoinExchange();
 
         float findExchangeRate(std::string& date) const;
+        bool getExceptionFlag(void) const;
 
     class NotValidDateFormat : public std::exception
     {
