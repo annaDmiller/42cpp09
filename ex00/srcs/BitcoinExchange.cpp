@@ -105,9 +105,21 @@ std::ifstream* BitcoinExchange::openCSVFile(void)
     return (filename);
 }
 
-float BitcoinExchange::findExchangeRate(std::string& date) const
+float BitcoinExchange::findExchangeRate(std::string& date)
 {
-    (void) date;
+    float ex_rate = 0;
+
+    for (std::map<std::string, float>:: iterator it = this->_rates.begin(); it != this->_rates.end(); it++)
+    {
+        if (date == it->first)
+            return (it->second);
+
+        if (date > it->first)
+            ex_rate = it->second;
+        
+        if (date < it->first)
+            return (ex_rate);
+    }
     return (0);
 }
 

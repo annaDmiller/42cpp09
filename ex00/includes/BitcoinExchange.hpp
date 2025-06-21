@@ -27,7 +27,7 @@ class   BitcoinExchange
         BitcoinExchange();
         ~BitcoinExchange();
 
-        float findExchangeRate(std::string& date) const;
+        float findExchangeRate(std::string& date);
         bool getExceptionFlag(void) const;
 
     class NotValidDateFormat : public std::exception
