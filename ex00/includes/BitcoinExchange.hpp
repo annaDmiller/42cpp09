@@ -50,6 +50,20 @@ class   BitcoinExchange
         virtual const char* what(void) const throw();
     };
 
+    class NegativeValue : public std::exception
+    {
+        virtual const char* what(void) const throw();
+    };
+
+    class TooLargeValue : public std::exception
+    {
+        virtual const char* what(void) const throw();
+    };
+
+    class EmptyException : public std::exception
+    {
+        virtual const char* what(void) const throw();
+    };
 };
 
 bool checkValidDate(int& year, int& month, int& day);

@@ -64,8 +64,6 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 
 void BitcoinExchange::checkDate(std::string& line, int& line_num) const
 {   
-    std::string test = "Hello";
-
     if (line[4] != '-' || line[7] != '-' || line[10] != ',')
     {
         std::cerr << "CSV File : Line " << line_num << " - ";
@@ -136,6 +134,21 @@ const char* BitcoinExchange::DuplicateValueInMap::what(void) const throw()
 const char* BitcoinExchange::NotValidDate::what(void) const throw()
 {
     return ("Error: date value is invalid.");
+}
+
+const char* BitcoinExchange::TooLargeValue::what(void) const throw()
+{
+    return ("Error: too large number.");
+}
+
+const char* BitcoinExchange::NegativeValue::what(void) const throw()
+{
+    return ("Error: not a positive number.");
+}
+
+const char* BitcoinExchange::EmptyException::what(void) const throw()
+{
+    return ("");
 }
 
 bool checkValidDate(int& year, int& month, int& day)
