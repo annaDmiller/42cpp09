@@ -181,9 +181,29 @@ bool checkValidDate(int& year, int& month, int& day)
         return (false);
 
     std::time_t now =  std::time(NULL);
-    if (year > 1900 + std::localtime(&now)->tm_year)
+    struct tm* now_tm = localtime(&now);
+    if (!now_tm)
         return (false);
+
+    now_tm->tm_hour = 0;
+    now_tm->tm_min = 0;
+    now_tm->tm_sec = 0;
+    time_t today_time = mktime(now_tm);
     
+    struct tm input_tm = {};
+    input_tm.tm_year = year - 1900;
+    input_tm.tm_mon = month - 1;
+    input_tm.tm_mday = day;
+    input_tm.tm_hour = 0;
+    input_tm.tm_min = 0;
+    input_tm.tm_sec = 0;
+    time_t input_time = mktime(&input_tm);
+    if (input_time == -1)
+        return (false);
+
+    if (input_time > today_time)
+        return (false);
+
     return (true);
 }
 
