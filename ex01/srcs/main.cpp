@@ -67,6 +67,9 @@ void runCalculation(char* arg)
     RPN temp_stack;
     int result;
 
+    if (!arg[0])
+        throw RPN::CustomErrorException();
+
     for (unsigned int ind = 0; arg[ind]; ind++)
     {
         if (arg[ind] == ' ')
