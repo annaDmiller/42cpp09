@@ -16,6 +16,8 @@ std::ifstream *open_input_file(char *addr)
 
 std::string getSeparator(std::string& line)
 {
+    if (line.empty())
+        throw BitcoinExchange::EmptyException();
     size_t value_ind = line.find("value", 0);
     return (line.substr(4, value_ind - 4));
 }
@@ -109,8 +111,20 @@ int main(int argc, char** argv)
         return (1);
     }
 
-    getline(*input_file, line);
-    std::string separator = getSeparator(line);
+    getline(*input_file, line);   
+    std::string separator;     
+    try
+    {
+        separator = getSeparator(line);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+        input_file->close();
+        delete input_file;
+        return (1);
+    }
+    
     while(getline(*input_file, line))
     {
         verifyCalculateAndPrint(line, separator, exchange_rates);

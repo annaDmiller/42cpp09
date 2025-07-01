@@ -19,24 +19,31 @@ BitcoinExchange::BitcoinExchange(void) : _exception_caught(false)
     int line_num = 0;
     std::pair<std::map<std::string, float>::iterator, bool> dupl_check;
 
-    if (getline(*csv_file, line))
+    getline(*csv_file, line);
+    if (line.empty())
     {
-        while (getline(*csv_file, line))
+        csv_file->close();
+        delete csv_file;
+        this->_exception_caught = true;
+        std::cerr << "Error: the CSV file is empty." << std::endl;
+        return ;
+    }
+    
+    while (getline(*csv_file, line))
+    {
+        line_num++;
+        try
         {
-            line_num++;
-            try
-            {
-                checkDate(line, line_num);
-                addValueToMap(line, line_num, dupl_check);       
-            }
-            catch(const std::exception& e)
-            {
-                std::cerr << e.what() << std::endl;
-                csv_file->close();
-                delete csv_file;
-                _exception_caught = true;
-                return;
-            }
+            checkDate(line, line_num);
+            addValueToMap(line, line_num, dupl_check);       
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+            csv_file->close();
+            delete csv_file;
+            _exception_caught = true;
+            return;
         }
     }
 
@@ -161,6 +168,11 @@ const char* BitcoinExchange::NegativeValue::what(void) const throw()
 const char* BitcoinExchange::EmptyException::what(void) const throw()
 {
     return ("");
+}
+
+const char* BitcoinExchange::EmptyFileException::what(void) const throw()
+{
+    return ("Error: the file is empty.");
 }
 
 bool checkValidDate(int& year, int& month, int& day)

@@ -64,6 +64,11 @@ class   BitcoinExchange
     {
         virtual const char* what(void) const throw();
     };
+
+    class EmptyFileException : public std::exception
+    {
+        virtual const char* what(void) const throw();
+    };
 };
 
 bool checkValidDate(int& year, int& month, int& day);
