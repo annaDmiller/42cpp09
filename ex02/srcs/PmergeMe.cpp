@@ -52,7 +52,7 @@ void PmergeMe::fillVector(char** args)
     for (int ind = 0; ind < this->_size; ind++)
     {
         num = atoi(args[ind]);
-        if (num < 0)
+        if (num <= 0)
             throw PmergeMe::CustomErrorException();
         this->_vector_arr.push_back(num);
     }
@@ -142,7 +142,7 @@ void PmergeMe::fillDeque(char** args)
     for (int ind = 0; ind < this->_size; ind++)
     {
         num = atoi(args[ind]);
-        if (num < 0)
+        if (num <= 0)
             throw PmergeMe::CustomErrorException();
         this->_deq_arr.push_back(num);
     }
