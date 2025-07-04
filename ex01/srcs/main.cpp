@@ -28,6 +28,9 @@ int calculateOperation(int& first, int& second, char oper)
             return (first * second);
 
         case '/':
+            if (second == 0)
+                throw RPN::CustomErrorException();
+
             return (first / second);
 
         default:
