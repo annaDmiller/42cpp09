@@ -18,8 +18,7 @@ std::string getSeparator(std::string& line)
 {
     if (line.empty())
         throw BitcoinExchange::EmptyFileException();
-    size_t value_ind = line.find("value", 0);
-    return (line.substr(4, value_ind - 4));
+    return (" | ");
 }
 
 float getValueOfInput(std::string& line, std::string& sep)
