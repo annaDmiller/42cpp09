@@ -84,15 +84,10 @@ void verifyCalculateAndPrint(std::string& line, std::string& sep, BitcoinExchang
 
 int main(int argc, char** argv)
 {
-    try
+    if (argc == 1)
     {
-        if (argc == 1)
-            open_input_file(NULL);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << std::endl;
-        return(1);
+        std::cerr << "Error: waiting for input file path as argument." << std::endl;
+        return (1);
     }
     
     BitcoinExchange exchange_rates;
