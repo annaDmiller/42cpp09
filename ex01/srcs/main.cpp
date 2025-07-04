@@ -86,6 +86,9 @@ void runCalculation(char* arg)
     }
     
     result = temp_stack.pop();
+    if (!temp_stack.isEmpty())
+        throw RPN::CustomErrorException();
+    
     std::cout << result << std::endl;
     return ;
 }
