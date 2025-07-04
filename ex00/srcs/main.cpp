@@ -17,7 +17,7 @@ std::ifstream *open_input_file(char *addr)
 std::string getSeparator(std::string& line)
 {
     if (line.empty())
-        throw BitcoinExchange::EmptyException();
+        throw BitcoinExchange::EmptyFileException();
     size_t value_ind = line.find("value", 0);
     return (line.substr(4, value_ind - 4));
 }
