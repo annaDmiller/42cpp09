@@ -8,6 +8,7 @@
 # include <deque>
 # include <ctime>
 # include <algorithm>
+# include <set>
 
 class PmergeMe
 {
@@ -29,6 +30,9 @@ class PmergeMe
 
         template <typename Container>
         bool isSorted(Container& cont) const;
+
+        template <typename Container>
+        Container generateJacobsthalSequence(size_t n);
 
     public:
         PmergeMe(void);

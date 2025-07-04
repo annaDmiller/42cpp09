@@ -113,14 +113,17 @@ std::vector<int> PmergeMe::sortingLogic(std::vector<int> cont)
 
 void PmergeMe::insertFromLoser(std::vector<int> &sorted, std::vector<int> &winner, std::vector<int> &loser)
 {
-    std::vector<int>::iterator new_ind;
-    std::vector<int>::iterator to_insert;
+    std::vector<int>::iterator winner_it;
+    std::vector<int>::iterator insert_it;
 
-    for (size_t ind = 0; ind < loser.size(); ind++)
+    std::vector<size_t> insertion_order = generateJacobsthalSequence<std::vector<size_t> >(loser.size());
+
+    for (size_t ind = 0; ind < insertion_order.size(); ind++)
     {
-        new_ind = std::lower_bound(sorted.begin(), sorted.end(), winner[ind]);
-        to_insert = std::lower_bound(sorted.begin(), new_ind, loser[ind]);
-        sorted.insert(to_insert, loser[ind]);
+        size_t ind_to_search = insertion_order[ind];
+        winner_it = std::lower_bound(sorted.begin(), sorted.end(), winner[ind_to_search]);
+        insert_it = std::lower_bound(sorted.begin(), winner_it, loser[ind_to_search]);
+        sorted.insert(insert_it, loser[ind_to_search]);
     }
     return ;
 }
@@ -203,14 +206,17 @@ std::deque<int> PmergeMe::sortingLogic(std::deque<int> cont)
 
 void PmergeMe::insertFromLoser(std::deque<int> &sorted, std::deque<int> &winner, std::deque<int> &loser)
 {
-    std::deque<int>::iterator new_ind;
-    std::deque<int>::iterator to_insert;
+    std::deque<int>::iterator winner_it;
+    std::deque<int>::iterator insert_it;
 
-    for (size_t ind = 0; ind < loser.size(); ind++)
+    std::deque<size_t> insertion_order = generateJacobsthalSequence<std::deque<size_t> >(loser.size());
+
+    for (size_t ind = 0; ind < insertion_order.size(); ind++)
     {
-        new_ind = std::lower_bound(sorted.begin(), sorted.end(), winner[ind]);
-        to_insert = std::lower_bound(sorted.begin(), new_ind, loser[ind]);
-        sorted.insert(to_insert, loser[ind]);
+        size_t ind_to_search = insertion_order[ind];
+        winner_it = std::lower_bound(sorted.begin(), sorted.end(), winner[ind_to_search]);
+        insert_it = std::lower_bound(sorted.begin(), winner_it, loser[ind_to_search]);
+        sorted.insert(insert_it, loser[ind_to_search]);
     }
     return ;
 }
